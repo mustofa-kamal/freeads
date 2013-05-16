@@ -7,9 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+
+
+
 @Entity
+@NamedQuery(name = "Post.findByTitle", 
+  query = "select p from Post p where p.title = ?1")
 @Table(name="POST")
 public class Post {
 	
@@ -22,9 +30,17 @@ public class Post {
 	String title;
 	
 	@Column(name="POST_DATE")
-	
 	Date postDate;
 	
+	@ManyToOne
+	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Integer getPostId() {
 		return postId;
 	}
@@ -43,5 +59,6 @@ public class Post {
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
+	
 	
 }
